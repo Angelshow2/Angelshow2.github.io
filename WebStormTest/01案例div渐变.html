@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        div{
+            height: 200px;
+            width: 300px;
+            background-color: hotpink;
+        }
+    </style>
+</head>
+<body>
+    <div id="dv"></div>
+    <input type="button" value="渐变" id="btn">
+    <script src="common.js"></script>
+    <script>
+
+        //按钮点击事件
+        my$("btn").onclick = function () {
+            var opacity = 10;
+            var timeId = setInterval(function () {
+                //透明化
+                opacity--;
+                if (opacity <= 0){
+                    clearInterval(timeId);
+                }
+                my$("dv").style.opacity = opacity/10;
+            },50)
+
+        }
+    </script>
+</body>
+</html>

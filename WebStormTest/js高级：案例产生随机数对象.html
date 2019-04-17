@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>案例产生随机数</title>
+</head>
+<body>
+<script>
+    //函数的自调用
+    (function (window) {
+        //随机数对象构造函数
+        function Random() {
+            
+        }
+
+        Random.prototype.getRandom = function (min,max) {
+            return Math.floor(Math.random()*(max-min)+min);
+        };
+
+        //把对象暴露给顶级对象window----》局部变量变成全局变量
+        window.Random = Random;
+
+    })(window);
+
+    var rm = new Random();
+    console.log(rm.getRandom(10,50));
+
+</script>
+</body>
+</html>

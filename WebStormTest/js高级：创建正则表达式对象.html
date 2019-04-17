@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+
+    // 1. 通过构造函数创建对象
+
+    // var reg = new RegExp(/\d{5}/);
+    // var str = "我的电话是10086";
+    // //调用方法验证字符串是否匹配
+    // var flag = reg.test(str);
+    // console.log(flag);
+
+
+    // 2. 字面量的方式创建正则表达式对象
+    var reg = /\d{1，5}/;
+    //调用方法验证字符串是否匹配
+    var flag = reg.test("我是不是你最疼爱的人888");
+    console.log(flag);
+
+
+
+</script>
+</body>
+</html>

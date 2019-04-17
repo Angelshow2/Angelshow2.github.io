@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>案例协议禁止按钮</title>
+</head>
+<body>
+    <textarea id="texta">我是这次案例的协议，你必须得把我看完，否则休想注册！</textarea>
+    <input type="button" value="请认真看完此协议(5)" id="btn" disabled="disabled">
+
+
+    <script src="common.js"></script>
+    <script>
+        var time = 5;
+        window.setInterval(function () {
+            time--;
+            my$("btn").value = "请认真看完此协议("+time+")";
+            if (time <= 0){
+                time = 0;
+                my$("btn").disabled = false;
+                my$("btn").value = "同意并注册";
+            }
+
+
+        },1000);
+
+
+    </script>
+</body>
+</html>

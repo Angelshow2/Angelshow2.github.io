@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            width: 308px;
+            height: 228px;
+            border: 1px solid gray;
+            position: relative;
+            left: 50%;
+            margin-left: -155px;
+            margin-top: 200px;
+        }
+        .dv{
+            width: 300px;
+            height: 220px;
+            /*border: 1px solid black;*/
+            position: absolute;
+            left: 50%;
+            margin-left: -150px;
+            top: 50%;
+            margin-top: -110px;
+            overflow: hidden;
+        }
+        img{
+            width: 300px;
+            height: 220px;
+        }
+        ul{
+            width: 1800px;
+            height: 220px;
+            position: absolute;
+        }
+        li{
+            display: inline;
+            float: left;
+            cursor: pointer;
+        }
+        span{
+            display: block;
+            width: 15px;
+            line-height: 15px;
+            font-size: 10px;
+            background-color: white;
+            /*border: 1px solid red;*/
+            float: left;
+            text-align: center;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .btn{
+            height: 30px;
+            width: 136px;
+            /*border: 1px solid blue;*/
+            position: absolute;
+            left: 50%;
+            top: 88%;
+            margin-left: -68px;
+        }
+        .current{
+            background-color: orange;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="dv">
+            <ul>
+                <li><a href="#"><img src="image/1.jpg"></a></li>
+                <li><a href="#"><img src="image/2.jpg"></a></li>
+                <li><a href="#"><img src="image/3.jpg"></a></li>
+                <li><a href="#"><img src="image/4.jpg"></a></li>
+                <li><a href="#"><img src="image/5.jpg"></a></li>
+                <li><a href="#"><img src="image/6.jpg"></a></li>
+            </ul>
+            <div class="btn">
+                <span class="current">1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+            </div>
+        </div>
+    </div>
+    <script src="common.js"></script>
+    <script>
+        //获取最外面的div
+        var box = my$("box");
+        //获取相框
+        var dv = box.children[0];
+
+        //获取ul
+        var ulObj = dv.children[0];
+        //获取相框的宽度
+        var imgWidth = ulObj.children[0].offsetWidth;
+        //实现按钮的效果
+        var spanObjs = dv.children[1].children;
+        for (var j=0;j<spanObjs.length;j++) {
+            //循环时把每个索引值保存下来
+            spanObjs[j].setAttribute("index", j);
+            spanObjs[j].onmouseover = function () {
+                for (var i = 0; i < spanObjs.length; i++) {
+                    spanObjs[i].removeAttribute("class");
+                }
+                this.className = "current";
+                var index = this.getAttribute("index");
+                animate(ulObj, -index * imgWidth);
+            };
+        }
+            //设置任意的一个元素,移动到指定的目标位置
+            function animate(element, target) {
+                //先清理定时器
+                clearInterval(element.timeId);
+                element.timeId = setInterval(function () {
+                    var current = element.offsetLeft;
+                    var step = 40;
+                    step = current < target ? step : -step;
+                    current += step;
+                    //判断当前位置是否已到达目标位置
+                    if (Math.abs(target - current) > Math.abs(step)) {
+                        element.style.left = current + "px";
+                    } else {
+                        clearInterval(element.timeId);
+                        element.style.left = target + "px";
+                    }
+                }, 20);
+            };
+
+
+    </script>
+</body>
+</html>

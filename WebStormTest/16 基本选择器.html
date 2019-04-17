@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li id="four">4</li>
+    <li>5</li>
+    <li class="green">6</li>
+    <li class="green">7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+</ul>
+
+<div class="green">222</div>
+<div class="green">222</div>
+
+<script src="jquery-1.12.4.js"></script>
+<script>
+    //入口函数
+    $(function () {
+
+        //jquery如何设置样式
+        //css（name，value）
+        //name:样式名 value: 样式值
+
+        //$("#four").css("backgroundColor", "red");
+
+
+        //$(".green").css("backgroundColor", "green");
+
+        //$("li").css("color","hotpink");
+
+        //并集 交集
+        //$("#four,.green").css("backgroundColor", "gold");
+
+        $("li.green").css("backgroundColor", "red");
+    });
+
+
+</script>
+</body>
+</html>

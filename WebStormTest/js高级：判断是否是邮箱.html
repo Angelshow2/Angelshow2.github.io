@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+请输入您的邮箱：<input type="text" value="" id="mail"> *<br>
+
+<script>
+    //如果输入的是邮箱，背景为绿色，否则为红色
+
+    //获取文本框，注册失去焦点事件
+    document.getElementById("mail").onblur = function () {
+        var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+        if (reg.test(this.value)){
+            this.style.backgroundColor = "green";
+        } else{
+            this.style.backgroundColor = "red";
+        }
+
+    };
+</script>
+</body>
+</html>

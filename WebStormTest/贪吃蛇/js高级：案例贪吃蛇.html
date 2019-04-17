@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>案例产生随机小方块</title>
+
+    <style>
+        .map {
+            width: 800px;
+            height: 600px;
+            background-color: gray;
+            margin: 70px auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div class="map"></div>
+
+<script src="Food.js"></script>
+<script src="Snake.js"></script>
+<script src="Game.js"></script>
+<script>
+    var gm = new Game(document.querySelector(".map"));
+    gm.init();
+</script>
+</body>
+</html>

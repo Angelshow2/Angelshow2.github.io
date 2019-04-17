@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>案例产生随机小方块</title>
+
+    <style>
+        .map{
+            width: 800px;
+            height: 600px;
+            background-color: gray;
+            margin:70px auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="map"></div>
+
+
+    <script>
+        //函数的自调用
+        (function (window) {
+            //随机数对象构造函数
+            function Random() {
+            }
+            Random.prototype.getRandom = function (min,max) {
+                return Math.floor(Math.random()*(max-min)+min);
+            };
+            //把对象暴露给顶级对象window----》局部变量变成全局变量
+            window.Random = new Random();
+        })(window);
+
+
+        //随机产生小方块
+        (function (window) {
+            var map = document.querySelector(".map");
+            //产生小方块的构造函数
+            function Food(width,height,color) {
+                this.width = width||20;
+                this.height = height||20;
+                this.color = color;
+                this.x = 0;
+                this.y = 0;
+                this.element = document.createElement("div");
+            }
+            //初始化小方块的位置
+            Food.prototype.init = function (map) {
+                var div = this.element;
+                div.style.width = this.width + "px";
+                div.style.height = this.height + "px";
+                div.style.backgroundColor = this.color;
+                div.style.position = "absolute";         //脱离文档流
+                //把小方块加入到map中
+                map.appendChild(div);
+                this.render(map);
+            };
+
+            //随机出现小方块
+            Food.prototype.render = function (map) {
+                var x = Random.getRandom(0,map.offsetWidth/this.width) * this.width;
+                var y = Random.getRandom(0,map.offsetHeight/this.height) * this.height;
+                this.x = x;
+                this.y = y;
+                var div = this.element;
+                div.style.left = this.x + "px";
+                div.style.top = this.y + "px";
+            };
+            //实例化对象
+            var fd = new Food(20, 20, "green");
+            fd.init(map);
+
+
+        })(window);
+
+
+
+    </script>
+</body>
+</html>
