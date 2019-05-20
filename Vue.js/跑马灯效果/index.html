@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <input v-on:click="move" type="button" value="浪起来">
+    <input v-on:click="stop" type="button" value="低调">
+    <p>{{ msg }}</p>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '猥琐发育，别浪~~~！',
+        interval: null
+      },
+      methods: {
+        move() {
+          if(this.inetrval !=null) {return}
+          this.inetrval = setInterval(() => {
+            var start = this.msg.substring(0, 1)
+            var end = this.msg.substring(1)
+            this.msg = end + start
+          }, 300)
+        },
+
+        stop() {
+          clearInterval(this.inetrval)
+          this.inetrval = null
+        }
+      }
+    })
+
+  // 字符串的 substring 方法进行字符串的截取操作
+
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+
+    <ul id="app">
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
+
+        <li v-for="(item, index) in items">
+            {{ parentMessage }} -- {{ index }} -- {{ item.message }}
+        </li>
+
+        <!-- 一个对象的 v-for -->
+        <li v-for="value in Object">
+            {{ value }}
+        </li>
+
+        <li v-for="(value, name) in Object">
+            {{ name }} : {{ value }}
+        </li>
+
+        <li v-for="(value, name, index) in Object">
+            {{ index }}. {{ name }} : {{ value }}
+        </li>
+
+    </ul>
+
+
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                parentMessage: '我是你爸爸',
+                items: [
+                    { message: '张三你好' },
+                    { message: '李四你好' },
+                    { message: '王五你好' }
+                ],
+                Object: {
+                    name: '招儿',
+                    age: 18,
+                    sex: '男'
+                }
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

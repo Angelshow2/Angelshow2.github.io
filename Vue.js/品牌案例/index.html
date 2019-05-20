@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./lib/bootstrap.css">
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+
+
+
+    <div>
+      <h3 class="text-primary">添加品牌</h3>
+      <hr>
+      <div class="form-inline">
+        <label class="text-muted">
+          &nbsp; Id: &nbsp;
+          <input v-model="newId" type="text" class="form-control">&nbsp;
+        </label>
+
+        <label>
+          Name: &nbsp;
+          <input v-model="newName" type="text" class="form-control">&nbsp;
+        </label>
+
+        <input @click="addData" type="button" value="添加" class="btn btn-primary"></input>&nbsp;
+
+        <input v-model="keywords" type="text" placeholder="请输入品牌关键字" class="form-control">&nbsp;
+
+
+      </div>
+    </div>
+    <hr>
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>Ctime</th>
+          <th>Operation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,index) in sertchData" v-bind:key="item.id">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.ctime | filterDate('yyyy-MM-dd') }}</td>
+          <td>
+            <a href="" @click.prevent="deleteData(index)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+
+    Vue.filter('filterDate', function (data, pattern) {
+      const dt = new Date(data)
+      console.log(dt)
+      const y = dt.getFullYear()
+      const m = dt.getMonth() + 1
+      const d = dt.getDate()
+
+      //  return y + '-' + m + '-' +d
+
+
+      if (pattern && pattern.toLowerCase() === 'yyyy-mm-dd') {
+        return `${y}-${m}-${d}`
+      } else {
+        const hh = dt.getHours()
+        const mm = dt.getMinutes()
+        const ss = dt.getSeconds()
+        return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+      }
+
+    })
+
+    const list = [
+      {
+        id: 1,
+        name: '奔驰',
+        ctime: new Date()
+      },
+      {
+        id: 2,
+        name: '宝马',
+        ctime: new Date()
+      }
+    ]
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        list,
+        newId: '',
+        newName: '',
+        keywords: ''
+      },
+      methods: {
+        deleteData(index) {
+          this.list.splice(index, 1)
+        },
+
+        addData() {
+          const newData = {
+            id: this.newId,
+            name: this.newName,
+            ctime: new Date()
+          }
+          this.list.push(newData)
+        }
+      },
+
+      computed: {
+        sertchData() {
+          return this.list.filter(t => t.name.includes(this.keywords))
+        }
+      },
+      // 私有过滤器,  过滤器有两个条件，  【过滤名称和过滤函数】
+      // 过滤器调用的时候采用的是就近原则，如果私有过滤器和全局过滤器名称一致，优先调用私有过滤器
+      filters: {
+        filterDate(data, pattern = '') {
+          const dt = new Date(data)
+          
+          const y = dt.getFullYear()
+          const m = (dt.getMonth() + 1).toString().padStart(2, '0') // 补充字符串
+          const d = dt.getDate().toString().padStart(2, '0')
+          // console.log(typeof m)
+          //  return y + '-' + m + '-' +d
+
+
+          if (pattern && pattern.toLowerCase() === 'yyyy-mm-dd') {
+            return `${y}-${m}-${d}`
+          } else {
+            const hh = dt.getHours()
+            const mm = dt.getMinutes()
+            const ss = dt.getSeconds()
+            return `${y}-${m}-${d} ${hh}:${mm}:${ss}~~~~~`
+          }
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

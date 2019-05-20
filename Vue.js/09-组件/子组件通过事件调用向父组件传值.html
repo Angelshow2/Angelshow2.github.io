@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+
+
+</head>
+<body>
+
+<div id="app">
+  <com1 :message="msg" @func="updateMsg">
+    
+  </com1>
+  
+  
+
+</div>
+
+<script>
+
+  
+  new Vue({
+    el: '#app',
+    data: {
+      msg: '123456789'
+    },
+    components: {
+      com1: {
+        props: ['message'],
+        template: `
+        <div>
+          <button @click="upMsg">点我</button>
+          <h3>我是父组件 {{ message }} </h3>
+        </div>
+        `,
+        methods: {
+          upMsg () {
+            this.$emit('func')
+          } 
+        }
+      }
+    },
+
+    methods: {
+      updateMsg () {
+        this.msg = '6845136545'
+        console.log('调用了')
+      } 
+    }
+  })
+
+</script>
+  
+</body>
+</html>

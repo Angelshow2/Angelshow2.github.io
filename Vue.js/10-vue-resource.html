@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script src="./node_modules/vue-resource/dist/vue-resource.js"></script>
+</head>
+<body>
+  
+<div id="app">
+
+  <input type="button" value="Get请求" @click="getInfo">
+  <input type="button" value="Post请求" @click="postInfo">
+
+</div>
+
+
+<script>
+
+  var vm = new Vue({
+    el: '#app',
+    methods: {
+      getInfo () {
+        this.$http.get('http://vue.studyit.io/api/getlunbo').then(function (result) {
+          console.log(result.body)
+        })
+      },
+
+      postInfo () {
+        this.$http.post('http://vue.studyit.io/api/post', {}, { emulateJSON: true }).then(result => {
+          console.log(result.body)
+        })
+      }
+    }
+  })
+
+</script>
+
+</body>
+</html>

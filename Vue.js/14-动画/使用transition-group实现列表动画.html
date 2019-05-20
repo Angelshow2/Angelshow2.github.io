@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+
+  <style>
+    li {
+      border: 1px dashed #999;
+      line-height: 30px;
+      padding-left: 20px;
+      margin: 20px;
+      font-size: 15px;
+      width: 100%;
+    }
+
+    li:hover {
+      background-color: skyblue;
+      transition: all 0.8s ease;
+    }
+
+    .v-enter,
+    .v-leave-to{
+      opacity: 0;
+      transform: translateX(150px);
+    }
+
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.8s ease;
+    }
+
+    /* 下面的 v-move 和 v-leave-active 配合使用，能够实现列表后续的元素，渐渐的漂上来的效果 */
+    .v-move{
+      transition: all 0.8s ease;
+    }
+
+    .v-leave-active{
+      position: absolute;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="app">
+
+    <label>
+      ID:
+      <input type="text" v-model="id">
+    </label>
+
+    <label>
+      NAME:
+      <input type="text" v-model="name">
+    </label>
+
+    <input type="button" value="ADD" @click="add">
+
+    
+      <!-- v-for 渲染出来的需要使用 transitionGroup 且必须使用 key-->
+      <!-- 给 transitionGroup 添加 appear 属性，实现页面展现的入场效果 -->
+      <!-- 给 transitionGroup 设置 tag 属性，指定 transitionGroup 渲染为指定的元素， 默认渲染为 span -->
+      <transition-group appear tag="ul">
+        <li v-for="(item,i) in list" v-bind:key="item.id" @click="del(i)">
+          {{ item.id }} --- {{ item.name }}
+        </li>
+      </transition-group>
+
+    
+    
+
+  </div>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        list: [
+          {
+            id: 1,
+            name: '刘备'
+          },
+          {
+            id: 2,
+            name: '关羽'
+          },
+          {
+            id: 3,
+            name: '张飞'
+          }
+        ],
+
+        id: '',
+        name: '',
+       
+      },
+
+      methods: {
+        add() {
+          this.list.push({
+            id: this.id,
+            name: this.name
+          })
+          this.id=''
+          this.name=''
+        },
+
+        del(i) {
+          this.list.splice(i, 1)
+        }
+      }
+    })
+
+  </script>
+
+</body>
+
+</html>

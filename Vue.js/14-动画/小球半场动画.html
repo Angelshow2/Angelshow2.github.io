@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <style>
+  
+    .ball{
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      background: skyblue;
+    }
+
+  </style>
+</head>
+<body>
+  
+  <div id="app">
+
+    <input type="button" value="快走吧！" @click="flag=!flag">
+
+    <transition
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:after-enter="afterEnter"
+      >
+      <div class="ball" v-show="flag"></div>
+    </transition>
+    
+
+  </div>
+
+<script>
+
+  new Vue({
+    el: '#app',
+    data: {
+      flag: false
+    },
+
+    methods: {
+      // 注意： 动画钩子函数的第一个参数： el ，表示要执行的那个DOM元素，是个原生的 JS DOM对象，可以认为， el 是通过 document.getElementById('')方式获取到的原生JS DOM对象
+      beforeEnter (el) {
+        // beforeEnter 表示动画入场之前，此时动画尚未开始，可以在 beforeEnter 中，设置元素开始动画之前的起始样式
+        // 设置小球开始动画之前的起始位置
+        el.style.transform = "translate(0, 0)"
+      },
+
+      enter (el, done) {
+        // 下面这句话没有实际作用，但是如果没有就出不来动画效果
+        // 可以认为 el.offsetLeft 会强制动画刷新
+        el.offsetLeft
+        // enter 表示动画开始之后的样式，可以设置动画完成之后的结束状态
+        el.style.transform = "translate(150px, 450px)"
+        el.style.transition = 'all 1s ease'
+        
+        // 这里的 done 其实就是 afterEnter 这个函数
+        done()
+      },
+
+      afterEnter (el) {
+        this.flag = !this.flag
+      }
+    }
+  })
+
+</script>
+
+</body>
+</html>

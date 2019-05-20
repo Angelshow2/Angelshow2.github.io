@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <p v-if="condition">hello World</p>
+        <p v-else>你好哇</p>
+
+
+        <template v-if="condition">
+            <p>你好哇</p>
+            <p>我今天又变帅了</p>
+            <p>你依然很开心</p>
+        </template>
+
+        <p v-show="ok">1212313123</p>
+
+    </div>
+
+
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                condition: 1,
+                ok: 0
+            }
+        })
+    </script>
+
+</body>
+
+</html>

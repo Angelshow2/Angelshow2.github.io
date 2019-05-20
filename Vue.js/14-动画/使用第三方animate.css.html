@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="../node_modules/animate.css/animate.css">
+
+</head>
+
+<body>
+
+  <div id="app">
+    <input type="button" value="快点我" @click="flag=!flag">
+    
+    <transition 
+      enter-active-class="zoomInUp" 
+      leave-active-class="hinge"
+      v-bind:duration="{ enter:2000, leave: 200 }"
+      >
+      <h3 v-show="flag" class="animated">我是一个H3</h3>
+    </transition>
+    <hr>
+
+    <input type="button" value="点我点我" @click="flag2=!flag2">
+
+    <transition name="my">
+      <h2 v-show="flag2">我是一个H2</h2>
+    </transition>
+
+
+
+  </div>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        flag: true,
+        flag2: true
+      }
+    })
+
+  </script>
+
+</body>
+
+</html>

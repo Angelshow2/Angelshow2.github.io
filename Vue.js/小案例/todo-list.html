@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+<style>
+  .done{
+    color: gray;
+    text-decoration: line-through;
+  }
+</style>
+
+</head>
+
+<body>
+
+  <div id="app">
+    
+    <p>当前任务数：{{ todos.filter(function(todos){ return todos.done === true }).length }} / {{ todos.length }}</p>
+    
+    <todo-list 
+      v-for="(todo,index) in todos"
+      v-bind:todo="todo"
+      v-bind:key="todo.id"
+      v-on:remove-todo="removeTodo(index)"
+    ></todo-list>
+
+    <input type="text" v-model="content" v-on:keydown.enter="addTodo">
+    <button v-on:click="addTodo">添加</button>
+
+  </div>
+
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+
+  Vue.component('todo-list', {
+    props: ['todo'],
+    template: `
+    <p>
+      <input type="checkbox" v-model="todo.done">
+      <span v-bind:class="{ done: todo.done }">{{ todo.task }}</span>
+      <button v-on:click="$emit('remove-todo')">X</button>
+    </p>
+    `
+  })
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      todos: [
+        { id: 1, task: '吃饭', done: false },
+        { id: 2, task: '睡觉', done: false },
+        { id: 3, task: '敲代码', done: true },
+        { id: 4, task: '玩游戏', done: false }
+      ],
+      content: ''
+    },
+    methods: {
+      addTodo: function () {
+        this.todos.push({
+          id: this.todos.length + 1, task: this.content, done: false
+        })
+        this.content = ''
+      },
+      removeTodo: function (index) {
+        this.todos.splice(index, 1)
+      }
+    }
+  })
+
+</script>
+
+
+</body>
+
+</html>

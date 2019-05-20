@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+
+  <style>
+  
+    .v-enter,
+    .v-leave-to{
+      opacity: 0;
+      transform: translateX(150px);
+      
+    }
+
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.6s ease;
+    }
+  
+    .my-enter,
+    .my-leave-to{
+      opacity: 0;
+      transform: rotate(10deg);
+    }
+
+    .my-enter-active,
+    .my-leave-active{
+      transition: all 0.6s ease;
+    }
+
+    .show-enter-active{
+      animation: bounce-in 0.5s;
+    }
+
+    .show-leave-active{
+      animation: bounce-in 0.5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+    <input type="button" value="快点我" @click="flag=!flag">
+    
+    <transition>
+      <h3 v-show="flag">我是一个H3</h3>
+    </transition>
+    <hr>
+
+    <input type="button" value="点我点我" @click="flag2=!flag2">
+    
+    <transition name="my">
+      <h2 v-show="flag2">我是一个H2</h2>
+    </transition>
+
+    <input type="button" @click="show=!show" value="点我">
+    <transition name="show">
+        <h5 v-show="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</h5>
+    </transition>
+
+  </div>
+
+  <script>
+
+    new Vue({
+      el: '#app',
+      data: {
+        flag: true,
+        flag2: true,
+        show: true
+      }
+  })
+
+  </script>
+
+</body>
+
+</html>

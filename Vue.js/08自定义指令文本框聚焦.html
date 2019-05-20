@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="app">
+    <input type="text" v-focus>
+  </div>
+
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+
+
+    // 当你需要不可避免的操作 DOM 的时候，使用自定义指令来解决
+    // 如何注册和使用自定义指令？
+    // 1.注册
+    //    全局注册： 在任何组件中都可以使用全局注册自定义指令
+    //    局部注册： 只能在当前组件使用自定义指令
+    //    如果需要在多个不同的组件中使用该指令，则把他定义为全局
+    // 2.使用
+
+    // 指令的名字随便取，但是使用时要加上 v- 
+    // 如果是驼峰命名法，则在使用时需要用 - 来连接并小写
+    // autoFocus ----》  v-auto-focus
+    // 第二个参数就是需要配置指令的生命钩子函数
+    // 每个钩子函数都有两参数：
+    //  el：      使用该指令的 DOM 对象
+    //  binging   一个对象，可以获取指令的值等信息 
+
+    // 注册一个全局自定义指令 v-focus
+    Vue.directive('focus', {
+      // 当被绑定的元素插入到 DOM 中时
+      // el 参数就是你作用该指令的 DOM 元素
+
+      // 只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+      // bind 中拿不到父元素
+      bind (el) {
+        console.log('bind', el.parentNode)
+      },
+      // 被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+      // 如果需要操作作用指令的父元素
+      inserted (el) {
+        console.log('inserted', el.parentNode)
+      },
+      update() {
+        console.log('update')
+      },
+      componentUpdated() {
+        console.log('componentUpdated')
+      },
+      unbind () {
+        console.log('unbind')        
+      }
+
+    })
+
+
+
+
+
+
+
+
+
+    const app = new Vue({
+      el: '#app'
+    })
+  </script>
+
+</body>
+
+</html>

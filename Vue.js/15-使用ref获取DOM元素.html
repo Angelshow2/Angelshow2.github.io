@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+  
+<div id="app">
+  <input type="button" value="获取" @click="getElement">
+  <h3 ref="myh3">外面正在下暴雨，你还记得我吗？</h3>
+  <mycom ref="mycom"></mycom>
+</div>
+
+<template id="tmpl">
+  <div>
+    {{ msg }}
+  </div>
+</template>
+
+<script>
+
+  const vm = new Vue({
+    el: '#app',
+    methods: {
+      getElement () {
+        // console.log(this.$refs.myh3.innerText)
+        // console.log(this.$refs.mycom.msg)
+        this.$refs.mycom.show()
+      } 
+    },
+
+    components: {
+      mycom: {
+        data () {
+          return {
+            msg: '登陆组件'
+          }
+        },
+        template: '#tmpl',
+        methods: {
+          show () {
+            console.log('我被调用了！')
+          }
+        }
+      }
+    }
+  })
+
+</script>
+
+</body>
+</html>

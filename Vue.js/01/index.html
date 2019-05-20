@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <ol>
+            <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id"
+            ></todo-item>
+        </ol> -->
+        <p v-once>{{ foo }}</p>
+        <span>{{ foo }}</span>
+        <p v-if="seen">hello world</p>
+        <a v-on:click="foo = 'aaa'">...</a>
+        <a v-bind:href="url">点我</a>
+        <button v-on:click="foo = 'aaa'"></button>
+        <form v-on:submit.prevent="onSubmit">...</form>
+    </div>
+
+
+
+    <script src="index.js"></script>
+</body>
+
+</html>

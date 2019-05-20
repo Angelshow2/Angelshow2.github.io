@@ -1,0 +1,22 @@
+{{ extend './layout.html' }}
+
+{{ block 'head' }}
+    <style>
+        body{
+            background-color: skyblue;
+        }
+    </style>
+{{ /block }}
+
+
+{{ block 'content' }}
+<div>
+    <h1>列表页自己的内容</h1>
+</div>
+{{ /block }} 
+
+{{ block 'script' }}
+<script>
+    window.alert('页面自己的JavaScript脚本！')
+</script>
+{{ /block }}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="../node_modules/bootstrap.css">
+
+</head>
+<body>
+
+<div id="app">
+  
+  <com-box @func="addComment"></com-box>
+  
+  <ul class="list-group">
+    <li
+      v-for="item in list" 
+      :key="item.id"
+      class="list-group-item d-flex justify-content-between align-items-center">
+      {{ item.content }}
+      <span class="badge badge-secondary badge-pill">评论人：{{ item.user }}</span>
+    </li>
+  </ul>
+</div>
+
+<template id="tmpl">
+  <div>
+
+    <div class="form-group">
+      <label>评论人：</label>
+      <input type="text" class="form-control" v-model="user">
+    </div>
+    <div class="form-group">
+        <label>评论内容：</label>
+        <textarea class="form-control" v-model="content"></textarea>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-success" @click="add">发表评论</button>
+    </div>
+    
+    
+  </div>
+</template>
+
+
+
+
+<script>
+
+  // const list = [
+  //       {
+  //         id: 1,
+  //         user: '孙尚香',
+  //         content: '来一发吗？满足你！'
+  //       },
+  //       {
+  //         id: 2,
+  //         user: '黄忠',
+  //         content: '摧枯拉朽的力量！'
+  //       },
+  //       {
+  //         id: 3,
+  //         user: '曹操',
+  //         content: '仁义，多么奢侈！'
+  //       },
+  //       {
+  //         id: 4,
+  //         user: '李白',
+  //         content: '将进酒，杯莫停！'
+  //       },
+  //     ]
+
+
+
+
+  new Vue({
+    el: '#app',
+    data: {
+      list: JSON.parse(window.localStorage.getItem('list') || '[]')
+    },
+    components: {
+      'com-box': {
+        data () {
+          return {
+            user: '',
+            content: ''
+          }
+        },
+        template: '#tmpl',
+        methods: {
+          // 添加评论的方法
+          add () {
+            const user = this.user.trim()               // 去首位空格
+            const content = this.content.trim()
+            if(user.length === 0 || content.length === 0){   // 判断内容是否为空
+              return
+            }
+            this.$emit('func', user, content)
+            this.user = ''
+            this.content = ''
+          } 
+        }
+      }
+      
+    },
+
+    methods: {
+      addComment (user, content) {
+        if(user.length === 0 || content.length === 0){
+              return
+        }
+        this.list.unshift({
+          id: this.list.length>0 ?this.list[0].id + 1 : 1,
+          user: user,
+          content: content
+        })
+      }
+    },
+
+    watch: {
+      list: {
+        handler: function (value, oldvalue) {
+          window.localStorage.setItem('list', JSON.stringify(value))
+        },
+        deep: true
+      }
+    }
+  })
+
+</script>
+  
+</body>
+</html>
