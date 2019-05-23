@@ -1,0 +1,17 @@
+li{
+  list-style: none;
+}
+
+.bgc{
+  width: 300px;
+  height: 300px;
+  background-image: url('../images/bgc.jpg');
+  background-size: contain;
+}
+
+span{
+  width: 100px;
+  height: 100px;
+}
+
+

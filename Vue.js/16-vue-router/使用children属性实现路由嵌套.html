@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+
+
+    <router-link to="/account">Account</router-link>
+
+    <router-view></router-view>
+
+
+  </div>
+
+
+
+
+  <script>
+
+    const account = {
+      template: `
+      <div>
+        <h1>这是一个Account</h1>
+        <router-link to="/account/login">登陆</router-link>
+        <router-link to="/account/register">注册</router-link>
+        <router-view></router-view>
+      </div>
+      `
+    }
+
+    const login = {
+      template: '<h1>登陆</h1>'
+    }
+
+    const register = {
+      template: '<h1>注册</h1>'
+    }
+
+    const router = new VueRouter({
+      routes: [
+        {
+          path: '/account',
+          component: account,
+          // 使用 children 属性，实现子路由，同时，子路由的 path 前面，不要带 / ，否则永远以根路径开始请求，这样不方便我们用户去理解URL地址
+          children: [
+            {
+              path: 'login',
+              component: login
+            },
+            {
+              path: 'register',
+              component: register
+            }
+          ]
+        }
+      ]
+    })
+
+    new Vue({
+      el: '#app',
+      router
+    })
+
+  </script>
+
+
+</body>
+
+</html>

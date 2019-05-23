@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+
+  <style>
+
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    h1{
+      margin: 0;
+      padding: 0; 
+      font-size: 30px;
+    }
+
+    .header {
+      background-color: skyblue;
+      height: 200px;
+    }
+
+    .container{
+      display: flex;
+      height: 700px;
+    }
+
+    .left {
+      background-color: hotpink;
+      flex: 2;
+    }
+
+    .mainBox {
+      background-color: lightgreen;
+      flex: 8;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="app">
+
+    <router-view></router-view>
+    <div class="container">
+      <router-view name="left"></router-view>
+      <router-view name='mainBox'></router-view>
+    </div>
+
+  </div>
+
+
+
+
+
+  <script>
+
+    const header = {
+      template: '<h1 class="header">我是Header</h1>'
+    }
+
+    const left = {
+      template: '<h1 class="left">我是Left</h1>'
+    }
+
+    const mainBox = {
+      template: '<h1 class="mainBox">我是MainBox</h1>'
+    }
+
+    const router = new VueRouter({
+      routes: [
+        {
+          path: '/',
+          components: {
+            'default': header, // 默认
+            'left': left,      // 添加 name 属性，放置对应名称的组件
+            'mainBox': mainBox
+          }
+        }
+      ]
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      router
+    })
+
+  </script>
+
+
+
+</body>
+
+</html>
